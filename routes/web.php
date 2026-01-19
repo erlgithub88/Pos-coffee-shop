@@ -11,9 +11,11 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 
 // ✅ Tambahkan route root supaya tidak not found saat akses via ngrok
@@ -27,6 +29,11 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
+        ->name('google.login');
+
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -79,8 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}/print', [OrderController::class, 'print'])->name('order.print');
         Route::get('/{order}', [OrderController::class, 'show'])->name('order.show');
         Route::get('/{order}/details', [OrderController::class, 'details'])->name('order.details');
-	
-
     });
 
     Route::prefix('submission')->group(function () {
@@ -115,8 +120,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/report/transaction', [ReportController::class, 'transaction'])->name('report.transaction');
     Route::get('/report/cashflow', [ReportController::class, 'cashflow'])->name('report.cashflow');
-	Route::get('/report/transaction/export', [ReportController::class, 'export'])->name('report.transaction.export');
-	Route::get('/report/export-pdf', [ReportController::class, 'exportPdf'])->name('report.export.pdf');
-
-
+    Route::get('/report/transaction/export', [ReportController::class, 'export'])->name('report.transaction.export');
+    Route::get('/report/export-pdf', [ReportController::class, 'exportPdf'])->name('report.export.pdf');
 });

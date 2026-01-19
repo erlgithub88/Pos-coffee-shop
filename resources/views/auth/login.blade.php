@@ -102,11 +102,57 @@
                 margin: 0 20px;
             }
         }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider span {
+            padding: 0 10px;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            font-size: 14px;
+            background: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .google-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .google-btn:hover {
+            background: #f7f7f7;
+            border-color: #ccc;
+        }
     </style>
 </head>
 
 <body>
-    <div class="login-box">
+    <div class="login-box" style="border-radius: 2rem;">
         <img src="/storage/images/logo-coffee1.png" alt="Logo Coffee Shop">
         <h2>Coffee Shop</h2>
         <p>Silakan login untuk melanjutkan</p>
@@ -116,6 +162,15 @@
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        <div class="divider">
+            <span>atau</span>
+        </div>
+
+        <a href="{{ route('google.login') }}" class="google-btn">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+            Login dengan Google
+        </a>
+
         @if ($errors->any())
         <ul>
             @foreach ($errors->all() as $error)
