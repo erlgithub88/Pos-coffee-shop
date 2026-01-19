@@ -2,112 +2,154 @@
 @section('content')
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Coffee Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --coffee-dark: #3e2723;
+            --coffee-main: #6f4e37;
+            --coffee-soft: #a1887f;
+            --coffee-cream: #f5ebe0;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            padding: 0;
-            background: url('/storage/images/bg-coffee.png') no-repeat center center fixed;
-            background-size: cover;
+            min-height: 100vh;
             font-family: 'Poppins', sans-serif;
-            height: 200vh;
+            background: 
+                linear-gradient(
+                    rgba(255, 255, 255, 0.55),
+                    rgba(62, 39, 35, 0.55)
+                ),
+                url('/storage/images/bg-coffee.png') center/cover no-repeat fixed;
+
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 30px;
         }
 
-        .login-box {
-            background: white;
-            padding: 40px 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        /* Glass Card */
+        .login-card {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 40px 32px;
             text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,.35);
+            animation: fadeUp 0.9s ease;
         }
 
-        .login-box img {
-            width: 250px;
-            height: 250px;
-            margin-bottom: 10px;
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .login-box h2 {
-            margin: 0 0 10px 0;
-            color: #2e7d32;
-            font-size: 24px;
+        /* Logo */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
         }
 
-        .login-box p {
+        .logo-wrapper img {
+            width: 140px;
+            height: auto;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,.35));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        h2 {
+            color: #5a3722;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #684914;
             font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
 
         form {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 14px;
         }
 
-        input[type="email"],
-        input[type="password"] {
+        input {
             width: 100%;
-            padding: 12px 15px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,.35);
+            background: rgba(255,255,255,.75);
             font-size: 14px;
+            transition: all .25s ease;
+            outline: none;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #5c411d;
+        input:focus {
+            border-color: var(--coffee-main);
+            box-shadow: 0 0 0 3px rgba(111,78,55,.25);
+            background: #fff;
+        }
+
+        /* Button */
+        .btn-login {
+            margin-top: 6px;
+            padding: 14px;
+            border-radius: 16px;
             border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: bold;
+            background: linear-gradient(135deg, #6f4e37, #4e342e);
+            color: #fff;
+            font-weight: 600;
             font-size: 15px;
             cursor: pointer;
-            margin-top: 10px;
+            transition: all .3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,.35);
         }
 
-        button:hover {
-            background-color: #43a047;
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,.45);
+            background: linear-gradient(135deg, #8d6e63, #5d4037);
         }
 
-        .forgot {
-            margin-top: 12px;
-            font-size: 0.9em;
-            color: #555;
-        }
-
-        .forgot a {
-            color: #2e7d32;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .forgot a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .login-box {
-                margin: 0 20px;
-            }
-        }
-
+        /* Divider */
         .divider {
             display: flex;
             align-items: center;
-            margin: 20px 0;
-            color: #aaa;
+            gap: 10px;
+            margin: 26px 0;
+            color: #eee;
             font-size: 13px;
         }
 
@@ -116,87 +158,111 @@
             content: "";
             flex: 1;
             height: 1px;
-            background: #ddd;
+            background: rgba(255,255,255,.4);
         }
 
-        .divider span {
-            padding: 0 10px;
-        }
-
+        /* Google Button */
         .google-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            padding: 13px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.85);
+            border: none;
             text-decoration: none;
-            color: #444;
-            font-weight: 500;
+            color: #333;
             font-size: 14px;
-            background: #fff;
-            transition: all 0.2s ease;
+            font-weight: 500;
+            transition: all .25s ease;
         }
 
         .google-btn img {
             width: 18px;
-            height: 18px;
         }
 
         .google-btn:hover {
-            background: #f7f7f7;
-            border-color: #ccc;
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,.25);
+        }
+
+        /* Register */
+        .register {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #eee;
+        }
+
+        .register a {
+            color: #ffe0b2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error */
+        .error-list {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 0, 0, 0.15);
+            color: #ffebee;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .error-list li {
+            margin-left: 18px;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 32px 22px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="login-box" style="border-radius: 2rem;">
-        <img src="/storage/images/logo-coffee1.png" alt="Logo Coffee Shop">
-        <h2>Coffee Shop</h2>
-        <p>Silakan login untuk melanjutkan</p>
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <div class="divider">
-            <span>atau</span>
-        </div>
 
-        <a href="{{ route('google.login') }}" class="google-btn">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
-            Login dengan Google
-        </a>
+<div class="login-card">
+ 
 
-        @if ($errors->any())
-        <ul>
+    <h2>COFFEE SHOP</h2>
+    <p>Masuk untuk menikmati pengalaman kopi terbaik</p>
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button class="btn-login" type="submit">Login</button>
+    </form>
+
+    <div class="divider">atau</div>
+
+    <a href="{{ route('google.login') }}" class="google-btn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+        Login dengan Google
+    </a>
+
+    @if ($errors->any())
+        <ul class="error-list">
             @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+                <li>{{ $error }}</li>
             @endforeach
         </ul>
-        @endif
+    @endif
 
-        <div class="forgot">
-            Belum punya akun? <a href="/register">Register</a>
-        </div>
+    <div class="register">
+        Belum punya akun? <a href="/register">Register</a>
     </div>
+</div>
 
-    <!-- Script opsional jika ingin handle redirect dengan JS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const registerLink = document.querySelector('.forgot a');
-            if (registerLink) {
-                registerLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.location.href = '/register';
-                });
-            }
-        });
-    </script>
 </body>
-
 </html>
 @endsection
