@@ -75,6 +75,8 @@ class UserController extends Controller
 			$validated['image_path'] = $imagePath;
 		}
 
+		$validated['name'] = $request->name;
+
 		$user = User::create($validated);
 
 		switch ($request->role) {

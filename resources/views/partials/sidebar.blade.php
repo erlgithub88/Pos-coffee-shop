@@ -17,9 +17,20 @@
       </div>
       <div class="info" style="margin-left: 10px;">
         <a href="#" class="d-block text-dark" style="font-weight: 600; font-size: 17px;">
-          {{ Auth::user()->name }}
+          @php
+          $user = Auth::user();
+          $displayName = match ($user->role) {
+          'owner' => $user->owner->name ?? '-',
+          'manager' => $user->manager->name ?? '-',
+          'cashier' => $user->cashier->name ?? '-',
+          default => '-',
+          };
+          @endphp
+
+          {{ $displayName }}
+
         </a>
-        <small class="text-muted" style="font-size: 14px;">{{ Auth::user()->email }}</small>
+        <small class="text-muted" style="font-size: 14px;">{{ ucfirst(Auth::user()->role) }}</small>
       </div>
     </div>
 
@@ -38,13 +49,13 @@
 
         <!-- Role-based Menus -->
         @if (Auth::user()->role == 'owner')
-          @include('partials.sidebar.owner')
+        @include('partials.sidebar.owner')
         @elseif (Auth::user()->role == 'manager')
-          @include('partials.sidebar.manager')
+        @include('partials.sidebar.manager')
         @elseif (Auth::user()->role == 'cashier')
-          @include('partials.sidebar.cashier')
+        @include('partials.sidebar.cashier')
         @elseif (Auth::user()->role == 'member')
-          @include('partials.sidebar.member')
+        @include('partials.sidebar.member')
         @endif
       </ul>
     </nav>
