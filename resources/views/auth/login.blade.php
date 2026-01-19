@@ -87,10 +87,11 @@
         }
 
         h2 {
-            color: #5a3722;
+            color: #743d1f;
             font-weight: 600;
             margin-bottom: 6px;
             letter-spacing: 1px;
+            font-weight: bold;
         }
 
         p {
