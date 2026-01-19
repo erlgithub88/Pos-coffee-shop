@@ -71,32 +71,6 @@ $isPaymentMethodActive = in_array(Route::currentRouteName(), $paymentMethodRoute
 		</p>
 	</a>
 </li>
-<!-- Tambahkan Member -->
-<li class="nav-item">
-	<?php
-$memberRoutes = ['member.index', 'member.create', 'member.edit'];
-$isMemberActive = in_array(Route::currentRouteName(), $memberRoutes);
-    ?>
-	<a href="{{ route('member.index') }}" class="{{ $isMemberActive ? 'active' : '' }} nav-link">
-		<i class="nav-icon fas fa-id-card"></i>
-		<p>
-			Member
-		</p>
-	</a>
-</li>
-<!-- Tambahkan Pengajuan -->
-<li class="nav-item">
-	<?php
-$pengajuanRoutes = ['submission.index', 'submission.create', 'submission.edit'];
-$isPengajuanActive = in_array(Route::currentRouteName(), $pengajuanRoutes);
-    ?>
-	<a href="{{ route('submission.index') }}" class="{{ $isPengajuanActive ? 'active' : '' }} nav-link">
-		<i class="nav-icon fas fa-file-alt"></i>
-		<p>
-			Pengajuan
-		</p>
-	</a>
-</li>
 
 
 <li class="nav-item">

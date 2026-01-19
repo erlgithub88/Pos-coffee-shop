@@ -5,12 +5,9 @@ use App\Http\Controllers\CashflowController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemSupplyController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\SubmissionController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -86,27 +83,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}/print', [OrderController::class, 'print'])->name('order.print');
         Route::get('/{order}', [OrderController::class, 'show'])->name('order.show');
         Route::get('/{order}/details', [OrderController::class, 'details'])->name('order.details');
-    });
-
-    Route::prefix('submission')->group(function () {
-        Route::get('/', [SubmissionController::class, 'index'])->name('submission.index');
-        Route::get('/create', [SubmissionController::class, 'create'])->name('submission.create');
-        Route::post('/', [SubmissionController::class, 'store'])->name('submission.store');
-        Route::get('/{submission}/edit', [SubmissionController::class, 'edit'])->name('submission.edit');
-        Route::put('/{submission}', [SubmissionController::class, 'update'])->name('submission.update');
-        Route::delete('/{submission}', [SubmissionController::class, 'destroy'])->name('submission.destroy');
-        Route::get('/submission/{submission}/accept', [SubmissionController::class, 'accept'])->name('submission.accept');
-        Route::get('/submission/{submission}/decline', [SubmissionController::class, 'decline'])->name('submission.decline');
-    });
-
-    Route::prefix('member')->group(function () {
-        Route::get('/', [MemberController::class, 'index'])->name('member.index');
-        Route::get('/create', [MemberController::class, 'create'])->name('member.create');
-        Route::post('/', [MemberController::class, 'store'])->name('member.store');
-        Route::get('/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
-        Route::put('/{member}', [MemberController::class, 'update'])->name('member.update');
-        Route::delete('/{member}', [MemberController::class, 'destroy'])->name('member.destroy');
-        Route::get('/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
     });
 
     Route::prefix('payment-method')->group(function () {
